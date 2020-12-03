@@ -22,7 +22,6 @@ export default () => {
                     <Text style={styles.textPrice}>Valor Total: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(totalValue)} </Text>
                 </View>
             }
-
                 <ScrollView centerContent>
                     <FlatList
                         data={cart}
@@ -46,7 +45,6 @@ export default () => {
                         }}
                         keyExtractor={(item) => item.id}>
                     </FlatList>
-
                 </ScrollView>
         </View>
     )
