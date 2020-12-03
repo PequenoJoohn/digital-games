@@ -13,46 +13,51 @@ export default () => {
     const { add, remove, cart, totalValue, subtotal, frete } = useCart();
 
     return (
-        <SafeAreaView>
-            <ScrollView centerContent>
-                <FlatList
-                    data={cart}
-                    contentContainerStyle={styles.flatList}
-                    renderItem={({ index, item }) => {
-                        return (
-                            <View style={styles.flatItem}>
-                                <Image style={styles.tinyLogo} source={item.image} />
-                                <Text style={styles.textLetter}>{item.name}</Text>
-                                <Text>R${item.price}</Text>
-                                <View style={styles.buttonsWrapper}>
-                                    <TouchableOpacity style={styles.button}>
-                                        <Button onPress={() => add(item)} title="+" />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.button}>
-                                        <Button onPress={() => remove(index)} title="-" />
-                                    </TouchableOpacity>
+        <View style={styles.container}>
+        {cart.length === 0 ?
+                <Text style={styles.textFound}>Nenhum produto <AntDesign name="shoppingcart" size={24} color="black" /></Text> :
+                <View>
+                    <Text style={styles.textPrice}>Frete: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(frete)} </Text>
+                    <Text style={styles.textPrice}>Subtotal: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(subtotal)} </Text>
+                    <Text style={styles.textPrice}>Valor Total: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(totalValue)} </Text>
+                </View>
+            }
+
+                <ScrollView centerContent>
+                    <FlatList
+                        data={cart}
+                        contentContainerStyle={styles.flatList}
+                        renderItem={({ index, item }) => {
+                            return (
+                                <View style={styles.flatItem}>
+                                    <Image style={styles.tinyLogo} source={item.image} />
+                                    <Text style={styles.textLetter}>{item.name}</Text>
+                                    <Text>R${item.price}</Text>
+                                    <View style={styles.buttonsWrapper}>
+                                        <TouchableOpacity style={styles.button}>
+                                            <Button onPress={() => add(item)} title="+" />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.button}>
+                                            <Button onPress={() => remove(index)} title="-" />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-                            </View>
-                        )
-                    }}
-                    keyExtractor={(item) => item.id}>
-                </FlatList>
-                {cart.length === 0 ?
-                    <Text style={styles.textFound}>Nenhum produto <AntDesign name="shoppingcart" size={24} color="black" /></Text> :
-                    <>
-                        <Text style={styles.textPrice}>Frete: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(frete)} </Text>
-                        <Text style={styles.textPrice}>Subtotal: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(subtotal)} </Text>
-                        <Text style={styles.textPrice}>Valor Total: R${Intl.NumberFormat("pt-BR", { style: 'currency', currency: 'BRL', maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(totalValue)} </Text>
-                    </>
-                }
-            </ScrollView>
-        </SafeAreaView>
+                            )
+                        }}
+                        keyExtractor={(item) => item.id}>
+                    </FlatList>
 
-
+                </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal: 24,
+        paddingTop: 40,
+    },
     tinyLogo: {
         width: 100,
         height: 100,
