@@ -2,7 +2,6 @@
 
 ## **Descrição**
 ### Criado usando o pacote open source `Expo` para inicialização e reprodução de toda a aplicação. </br>Rodando no próprio software fornecido na app store.</br> Codificado em React-Native.
-<br>
 
 ### **Como rodar**
 `$git clone https://github.com/PequenoJoohn/digital-games.git`
