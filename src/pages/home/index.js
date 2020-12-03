@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, FlatList, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, FlatList, Text, Image, StyleSheet, Button, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 import { useCart } from '../../context/cart';
 
@@ -86,10 +85,15 @@ export default () => {
         }
     ]
 
+    /*Stars Score */
     function scoreStars(quantity) {
         if (quantity < 100) {
             return (<>
                 <AntDesign name="star" size={14} color="black" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
             </>
             )
         }
@@ -97,6 +101,9 @@ export default () => {
             return (<>
                 <AntDesign name="star" size={14} color="black" />
                 <AntDesign name="star" size={14} color="black" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
             </>
             )
         }
@@ -105,6 +112,8 @@ export default () => {
                 <AntDesign name="star" size={14} color="black" />
                 <AntDesign name="star" size={14} color="black" />
                 <AntDesign name="star" size={14} color="black" />
+                <AntDesign name="star" size={14} color="#ccc" />
+                <AntDesign name="star" size={14} color="#ccc" />
             </>
             )
         }
@@ -114,6 +123,7 @@ export default () => {
                 <AntDesign name="star" size={14} color="black" />
                 <AntDesign name="star" size={14} color="black" />
                 <AntDesign name="star" size={14} color="black" />
+                <AntDesign name="star" size={14} color="#ccc" />
             </>
             )
         }
@@ -132,18 +142,19 @@ export default () => {
     }
 
     return (
-        <SafeAreaView>
+        <View style={styles.container}>
+            <Text style={styles.navbar}>Digital Games <MaterialIcons name="videogame-asset" size={24} /></Text>
             <ScrollView>
                 <FlatList
                     contentContainerStyle={styles.flatList}
                     renderItem={({ item }) => {
                         return (
-                            <View style={{ alignItems: "center", width: '100%', backgroundColor: "#FFF", height: 250, padding: 24, borderWidth: 0.5, borderColor: "#333", }}>
+                            <View style={styles.flatItem}>
                                 <Image style={styles.tinyLogo} source={item.image} />
                                 <Text>{item.name}</Text>
                                 <Text>R${item.price} </Text>
                                 <Text>{scoreStars(item.score)}</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity style={styles.flatButton}>
                                     <Button title="Comprar" onPress={() => add(item)} />
                                 </TouchableOpacity>
                             </View>
@@ -152,11 +163,19 @@ export default () => {
                     data={data}
                     keyExtractor={(item) => item.id} />
             </ScrollView>
-        </SafeAreaView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal: 24,
+        paddingTop: 40,
+    },
+    navbar: {
+        fontSize: 25,
+    },
     tinyLogo: {
         width: 100,
         height: 100,
@@ -165,6 +184,23 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 24,
-        paddingTop: 20
+        paddingBottom: 40
+    },
+    flatItem: {
+        alignItems: "center",
+        width: '100%',
+        backgroundColor: "#FFF",
+        height: 250,
+        padding: 24,
+        borderWidth: 0.5,
+        borderColor: "#333"
+    },
+    flatButton: {
+        padding: 10
+    },
+    search: {
+        height: 50,
+        width: 150,
+        marginLeft: 20
     }
 });

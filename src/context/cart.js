@@ -6,19 +6,34 @@ export default function CartProvider({ children }) {
 
     const [cart, setCart] = useState([]);
     const [totalValue, setTotalValue] = useState();
-    const [frete, setFrete] = useState(20.00);
+    const [frete, setFrete] = useState();
+    const [subtotal, setSubtotal] = useState();
 
     useEffect(() => {
+
         let value = 0;
+        let valueFrete = 0;
+        let freteItem = 0;
+        
         cart.map((item) => {
-            value = value + item.price
+            
+            /* Valor + Frete */
+            value = value + item.price;
+            freteItem =+ freteItem + 10.00;   
+            valueFrete = value + freteItem;
+
+            /* Frete Gratis */
+            if (value >= 250) {
+                setFrete(freteItem = 0);
+                valueFrete = value - freteItem;
+                setSubtotal(value);
+                setTotalValue(valueFrete);
+            }
+            
+            setFrete(freteItem);
+            setSubtotal(value);
+            setTotalValue(valueFrete);
         });
-
-        if(value > 250) {
-            return setTotalValue(value);
-        }
-
-        setTotalValue(value + frete);
     }, [cart]);
 
     function add(item) {
@@ -38,6 +53,7 @@ export default function CartProvider({ children }) {
         add,
         cart,
         totalValue,
+        subtotal,
         remove,
         frete
     }
@@ -56,6 +72,7 @@ export function useCart() {
         cart,
         add,
         totalValue,
+        subtotal,
         remove,
         frete
     } = context;
@@ -64,6 +81,7 @@ export function useCart() {
         cart,
         add,
         totalValue,
+        subtotal,
         remove,
         frete
     }
